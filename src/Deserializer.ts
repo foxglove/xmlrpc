@@ -18,7 +18,7 @@ export class Deserializer {
   private _data: string[] = [];
   private _methodname?: string;
   private _encoding: Encoding;
-  private _value: boolean = false;
+  private _value = false;
   private _callback: (err?: Error, res?: XmlRpcValue[]) => void = () => {};
   private _error?: Error;
   private _parser: sax.SAXStream;
@@ -39,7 +39,7 @@ export class Deserializer {
   deserializeMethodResponse(data: string | ArrayBuffer): Promise<XmlRpcValue> {
     return new Promise((resolve, reject) => {
       this._callback = (error, result) => {
-        if (error) {
+        if (error != undefined) {
           reject(error);
         } else if (result != undefined && result.length > 1) {
           reject(new Error("Response has more than one param"));
@@ -61,7 +61,7 @@ export class Deserializer {
   ): Promise<[methodName: string, args: XmlRpcValue[]]> {
     return new Promise((resolve, reject) => {
       this._callback = (error, result) => {
-        if (error) {
+        if (error != undefined) {
           reject(error);
         } else if (this._type !== "methodcall") {
           reject(new Error("Not a method call"));
@@ -77,7 +77,7 @@ export class Deserializer {
   }
 
   private _onDone = (): void => {
-    if (!this._error) {
+    if (this._error == undefined) {
       if (this._type == undefined || this._marks.length !== 0) {
         this._callback(new Error(`Invalid XML-RPC ${this._type ?? "message"}`));
       } else if (this._responseType === "fault") {
@@ -98,7 +98,7 @@ export class Deserializer {
   };
 
   private _onError = (err: Error): void => {
-    if (!this._error) {
+    if (this._error == undefined) {
       this._error = err;
       this._callback(this._error);
     }

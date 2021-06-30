@@ -14,7 +14,7 @@ export class DateFormatter {
     /([0-9]{4})([-]?([0-9]{2}))([-]?([0-9]{2}))(T-?([0-9]{2})(((:?([0-9]{2}))?((:?([0-9]{2}))?(\.([0-9]+))?))?)(Z|([+-]([0-9]{2}(:?([0-9]{2}))?)))?)?/;
 
   constructor(options?: DateFormatterOptions) {
-    if (options) {
+    if (options != undefined) {
       this._colons = options.colons ?? this._colons;
       this._hyphens = options.hyphens ?? this._hyphens;
       this._ms = options.ms ?? this._ms;
@@ -29,8 +29,8 @@ export class DateFormatter {
    * @return {Date}       - Date object from timestamp.
    */
   decodeIso8601(time: string): Date {
-    const dateParts = time.toString().match(DateFormatter.ISO8601);
-    if (!dateParts) {
+    const dateParts = DateFormatter.ISO8601.exec(time.toString());
+    if (dateParts == null) {
       throw new Error(`Expected a ISO8601 datetime but got "${time}"`);
     }
 
@@ -45,7 +45,7 @@ export class DateFormatter {
     ].join("");
 
     date +=
-      dateParts[17] !== undefined
+      dateParts[17] != undefined
         ? dateParts[17] +
           (dateParts[19] != undefined && dateParts[20] == undefined ? "00" : "")
         : "Z";

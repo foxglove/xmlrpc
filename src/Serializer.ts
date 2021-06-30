@@ -78,7 +78,7 @@ function serializeValue(value: XmlRpcValue, xml: XMLBuilder) {
     if (current.index !== undefined) {
       // Iterating a compound
       next = getNextItemsFrame(current);
-      if (next) {
+      if (next != undefined) {
         stack.push(next);
       } else {
         stack.pop();
@@ -121,7 +121,7 @@ function serializeValue(value: XmlRpcValue, xml: XMLBuilder) {
             }
             current.index = 0;
             next = getNextItemsFrame(current);
-            if (next) {
+            if (next != undefined) {
               stack.push(next);
             } else {
               stack.pop();
@@ -139,7 +139,7 @@ function serializeValue(value: XmlRpcValue, xml: XMLBuilder) {
 function getNextItemsFrame(frame: ValueInfo) {
   let nextFrame: ValueInfo | undefined;
 
-  if (frame.keys && frame.index != undefined) {
+  if (frame.keys != undefined && frame.index != undefined) {
     if (frame.index < frame.keys.length) {
       const key = frame.keys[frame.index++] as string;
       const member = frame.xml.ele("member").ele("name").txt(key).up();
