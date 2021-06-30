@@ -19,7 +19,9 @@ export class Deserializer {
   private _methodname?: string;
   private _encoding: Encoding;
   private _value = false;
-  private _callback: (err?: Error, res?: XmlRpcValue[]) => void = () => {};
+  private _callback: (err?: Error, res?: XmlRpcValue[]) => void = () => {
+    return;
+  };
   private _error?: Error;
   private _parser: sax.SAXStream;
 
