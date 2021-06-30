@@ -10,6 +10,7 @@
     "email": "contact@foxglove.dev",
     "url": "https://foxglove.dev/"
   },
+  "type": "module",
   "main": "dist/index.js",
   "files": [
     "dist",
