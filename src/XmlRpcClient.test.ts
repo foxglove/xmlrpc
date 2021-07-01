@@ -1,8 +1,8 @@
 import http from "http";
 import type { AddressInfo } from "net";
 
-import { XmlRpcClient } from "./XmlRpcClient.js";
-import { XmlRpcFault } from "./XmlRpcFault.js";
+import { XmlRpcClient } from "./XmlRpcClient";
+import { XmlRpcFault } from "./XmlRpcFault";
 
 describe("XmlRpcClient", () => {
   it("Can call a method on a live server", (done) => {
