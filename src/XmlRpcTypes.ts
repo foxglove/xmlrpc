@@ -1,4 +1,4 @@
-import { XmlRpcFault } from "./XmlRpcFault";
+import { XmlRpcFault } from "./XmlRpcFault.js";
 
 export type XmlRpcValue =
   | undefined
