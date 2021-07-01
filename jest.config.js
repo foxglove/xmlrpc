@@ -3,5 +3,4 @@ module.exports = {
   transform: {
     "\\.ts$": "esbuild-jest",
   },
-  resolver: "jest-ts-webcompat-resolver",
 };

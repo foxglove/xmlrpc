@@ -1,8 +1,8 @@
 import sax from "sax";
 
-import { DateFormatter } from "./DateFormatter.js";
-import { XmlRpcFault } from "./XmlRpcFault.js";
-import { XmlRpcValue, Encoding, XmlRpcStruct } from "./XmlRpcTypes.js";
+import { DateFormatter } from "./DateFormatter";
+import { XmlRpcFault } from "./XmlRpcFault";
+import { XmlRpcValue, Encoding, XmlRpcStruct } from "./XmlRpcTypes";
 
 type XmlNode = { name: string; body: string };
 type DeserializerType = "methodcall" | "methodresponse";
