@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable jest/no-done-callback */
+
 import http from "http";
 import type { AddressInfo } from "net";
 
@@ -53,11 +56,7 @@ describe("XmlRpcClient", () => {
         const port = (server.address() as AddressInfo).port;
         const client = new XmlRpcClient(`http://localhost:${port}/`);
         const res = await client.methodCall("listMethods");
-        expect(res).toEqual([
-          "system.listMethods",
-          "system.methodSignature",
-          "xmlrpc_dialect",
-        ]);
+        expect(res).toEqual(["system.listMethods", "system.methodSignature", "xmlrpc_dialect"]);
         server.close();
         done();
       });

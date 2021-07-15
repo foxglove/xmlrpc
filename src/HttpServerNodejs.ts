@@ -17,12 +17,18 @@ export class HttpServerNodejs implements HttpServer {
         const input = { ...req, body };
 
         // Handle this request
-        this.handler(input).then((out) => {
-          // Write the HTTP response
-          res.shouldKeepAlive = out.shouldKeepAlive ?? res.shouldKeepAlive;
-          res.writeHead(out.statusCode, out.statusMessage, out.headers);
-          res.end(out.body);
-        });
+        this.handler(input)
+          .then((out) => {
+            // Write the HTTP response
+            res.shouldKeepAlive = out.shouldKeepAlive ?? res.shouldKeepAlive;
+            res.writeHead(out.statusCode, out.statusMessage, out.headers);
+            res.end(out.body);
+          })
+          .catch((err) => {
+            // Write an HTTP error response
+            res.writeHead(500, "Internal Server Error", { "Content-Type": "text/plain" });
+            res.end(String(err));
+          });
       });
     });
   }
@@ -33,9 +39,7 @@ export class HttpServerNodejs implements HttpServer {
       return addr ?? undefined;
     }
     const hostname = addr.address === "::" ? "[::]" : addr.address;
-    return `http://${hostname}${
-      addr.port != undefined ? ":" + String(addr.port) : ""
-    }/`;
+    return `http://${hostname}${addr.port != undefined ? ":" + String(addr.port) : ""}/`;
   }
 
   port(): number | undefined {

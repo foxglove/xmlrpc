@@ -4,39 +4,49 @@
   "version": "1.0.0",
   "description": "TypeScript library implementing an XMLRPC client and server with pluggable server backend",
   "license": "MIT",
-  "repository": "github:foxglove/xmlrpc",
-  "author": {
-    "name": "Foxglove",
-    "email": "contact@foxglove.dev",
-    "url": "https://foxglove.dev/"
+  "keywords": [
+    "xmlrpc",
+    "xml",
+    "rpc",
+    "http",
+    "server"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxglove/xmlrpc.git"
   },
+  "author": {
+    "name": "Foxglove Technologies Inc",
+    "email": "contact@foxglove.dev"
+  },
+  "homepage": "https://github.com/foxglove/xmlrpc",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
     "build": "tsc -b",
-    "prepack": "tsc -b",
-    "clean": "tsc -b --clean",
-    "lint": "eslint --report-unused-disable-directives --fix .",
     "lint:ci": "eslint --report-unused-disable-directives .",
+    "lint": "eslint --report-unused-disable-directives --fix .",
+    "prepack": "yarn build",
+    "prepublishOnly": "yarn lint:ci && yarn test",
     "test": "jest"
   },
   "dependencies": {
-    "@foxglove/just-fetch": "^1.2.0",
+    "@foxglove/just-fetch": "^1.2.4",
     "byte-base64": "^1.1.0",
     "sax": "^1.2.4",
-    "web-encoding": "^1.1.5",
     "xmlbuilder2": "^2.4.1"
   },
   "devDependencies": {
     "@foxglove/eslint-plugin": "0.12.0",
-    "@foxglove/tsconfig": "1.0.0",
     "@types/jest": "26.0.23",
     "@types/sax": "^1.2.1",
     "@typescript-eslint/eslint-plugin": "4.28.1",
     "@typescript-eslint/parser": "4.28.1",
+    "esbuild": "0.12.15",
     "esbuild-jest": "0.5.0",
     "eslint": "7.29.0",
     "eslint-config-prettier": "8.3.0",

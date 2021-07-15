@@ -24,9 +24,6 @@ export type Encoding =
   | "binary"
   | "hex";
 
-export type XmlRpcMethodHandler = (
-  methodName: string,
-  args: XmlRpcValue[]
-) => Promise<XmlRpcValue>;
+export type XmlRpcMethodHandler = (methodName: string, args: XmlRpcValue[]) => Promise<XmlRpcValue>;
 
 export type XmlRpcValueOrFault = XmlRpcValue | XmlRpcFault;

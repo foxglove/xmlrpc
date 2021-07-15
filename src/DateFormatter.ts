@@ -37,17 +37,14 @@ export class DateFormatter {
     let date = [
       [dateParts[1], dateParts[3] ?? "01", dateParts[5] ?? "01"].join("-"),
       "T",
-      [dateParts[7] ?? "00", dateParts[11] ?? "00", dateParts[14] ?? "00"].join(
-        ":"
-      ),
+      [dateParts[7] ?? "00", dateParts[11] ?? "00", dateParts[14] ?? "00"].join(":"),
       ".",
       dateParts[16] ?? "000",
     ].join("");
 
     date +=
       dateParts[17] != undefined
-        ? dateParts[17] +
-          (dateParts[19] != undefined && dateParts[20] == undefined ? "00" : "")
+        ? dateParts[17] + (dateParts[19] != undefined && dateParts[20] == undefined ? "00" : "")
         : "Z";
 
     return new Date(date);
@@ -109,9 +106,7 @@ export class DateFormatter {
    * @param {Date} date - Date Object
    * @return {[string, string, string, string, string, string, string]}
    */
-  static getUTCDateParts(
-    date: Date
-  ): [string, string, string, string, string, string, string] {
+  static getUTCDateParts(date: Date): [string, string, string, string, string, string, string] {
     return [
       date.getUTCFullYear().toString(),
       DateFormatter.zeroPad(date.getUTCMonth() + 1, 2),
