@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable jest/no-done-callback */
+
 import http from "http";
 import { URL } from "url";
 
@@ -10,15 +15,12 @@ describe("XmlRpcServer", () => {
   it("Can receive a chunked request", (done) => {
     let handledMethod = false;
     const server = new XmlRpcServer(new HttpServerNodejs());
-    server.setHandler(
-      "testMethod",
-      (methodName, args): Promise<XmlRpcValue> => {
-        handledMethod = true;
-        expect(methodName).toEqual("testMethod");
-        expect(args).toEqual(["Param A", "Param B"]);
-        return Promise.resolve([1, "test", undefined]);
-      }
-    );
+    server.setHandler("testMethod", (methodName, args): Promise<XmlRpcValue> => {
+      handledMethod = true;
+      expect(methodName).toEqual("testMethod");
+      expect(args).toEqual(["Param A", "Param B"]);
+      return Promise.resolve([1, "test", undefined]);
+    });
     server.listen().then(() => {
       const port = parseInt(new URL(server.server.url() as string).port);
       expect(port).not.toBeNaN();
@@ -35,10 +37,7 @@ describe("XmlRpcServer", () => {
         "</param>" +
         "<param>";
       const chunk2 =
-        "<value><string>Param B</string></value>" +
-        "</param>" +
-        "</params>" +
-        "</methodCall>";
+        "<value><string>Param B</string></value>" + "</param>" + "</params>" + "</methodCall>";
 
       req.on("error", (err) => done.fail(err));
       req.on("response", (res) => {
@@ -48,7 +47,7 @@ describe("XmlRpcServer", () => {
         res.on("data", (chunk: string) => (resData += chunk));
         res.on("end", () => {
           expect(resData).toEqual(
-            '<?xml version="1.0"?><methodResponse version="1.0"><params><param><value><array><data><value><int>1</int></value><value><string>test</string></value><value/></data></array></value></param></params></methodResponse>'
+            '<?xml version="1.0"?><methodResponse version="1.0"><params><param><value><array><data><value><int>1</int></value><value><string>test</string></value><value/></data></array></value></param></params></methodResponse>',
           );
           server.close();
           done();
@@ -63,20 +62,14 @@ describe("XmlRpcServer", () => {
 
   it("serializes faults", async () => {
     const server = new XmlRpcServer(new HttpServerNodejs());
-    server.setHandler(
-      "testMethod1",
-      (methodName, _args): Promise<XmlRpcValue> => {
-        expect(methodName).toEqual("testMethod1");
-        throw new Error("Example error");
-      }
-    );
-    server.setHandler(
-      "testMethod2",
-      (methodName, _args): Promise<XmlRpcValue> => {
-        expect(methodName).toEqual("testMethod2");
-        throw new XmlRpcFault("Example error", 123);
-      }
-    );
+    server.setHandler("testMethod1", (methodName, _args): Promise<XmlRpcValue> => {
+      expect(methodName).toEqual("testMethod1");
+      throw new Error("Example error");
+    });
+    server.setHandler("testMethod2", (methodName, _args): Promise<XmlRpcValue> => {
+      expect(methodName).toEqual("testMethod2");
+      throw new XmlRpcFault("Example error", 123);
+    });
 
     await server.listen();
     const port = parseInt(new URL(server.server.url() as string).port);
@@ -99,9 +92,9 @@ describe("XmlRpcServer", () => {
                 expect(resData).toContain(
                   `<?xml version="1.0"?><methodResponse version="1.0"><fault><value><struct><member>` +
                     `<name>faultCode</name><value><int>-32500</int></value></member>` +
-                    `<member><name>faultString</name><value><string>Error: Example error`
+                    `<member><name>faultString</name><value><string>Error: Example error`,
                 );
-              })()
+              })(),
             );
           });
         });
@@ -129,9 +122,9 @@ describe("XmlRpcServer", () => {
                 expect(resData).toContain(
                   `<?xml version="1.0"?><methodResponse version="1.0"><fault><value><struct>` +
                     `<member><name>faultCode</name><value><int>123</int></value></member>` +
-                    `<member><name>faultString</name><value><string>Example error`
+                    `<member><name>faultString</name><value><string>Example error`,
                 );
-              })()
+              })(),
             );
           });
         });

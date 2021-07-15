@@ -58,9 +58,7 @@ export class Deserializer {
     });
   }
 
-  deserializeMethodCall(
-    data: string
-  ): Promise<[methodName: string, args: XmlRpcValue[]]> {
+  deserializeMethodCall(data: string): Promise<[methodName: string, args: XmlRpcValue[]]> {
     return new Promise((resolve, reject) => {
       this._callback = (error, result) => {
         if (error != undefined) {
@@ -84,12 +82,8 @@ export class Deserializer {
         this._callback(new Error(`Invalid XML-RPC ${this._type ?? "message"}`));
       } else if (this._responseType === "fault") {
         const createFault = (fault: XmlRpcStruct) => {
-          const faultString =
-            typeof fault.faultString === "string"
-              ? fault.faultString
-              : undefined;
-          const faultCode =
-            typeof fault.faultCode === "number" ? fault.faultCode : undefined;
+          const faultString = typeof fault.faultString === "string" ? fault.faultString : undefined;
+          const faultCode = typeof fault.faultCode === "number" ? fault.faultCode : undefined;
           return new XmlRpcFault(faultString, faultCode);
         };
         this._callback(createFault(this._stack[0] as XmlRpcStruct));
@@ -241,11 +235,7 @@ export class Deserializer {
 
   private _endArray = (_data: string): void => {
     const mark = this._marks.pop() ?? 0;
-    this._stack.splice(
-      mark,
-      this._stack.length - mark,
-      this._stack.slice(mark)
-    );
+    this._stack.splice(mark, this._stack.length - mark, this._stack.slice(mark));
     this._value = false;
   };
 

@@ -4,11 +4,10 @@ TypeScript library implementing an XMLRPC client and server with pluggable serve
 
 ## License
 
-@foxglove/xmlrpc is released under the [MIT License](/LICENSE.md).
+@foxglove/xmlrpc is licensed under [MIT License](https://opensource.org/licenses/MIT).
 
 ## Releasing
 
-```sh
-tag=$(npm version minor) && echo "$tag"
-git push && git push origin "$tag"
-```
+1. Run `yarn version --[major|minor|patch]` to bump version
+2. Run `git push && git push --tags` to push new tag
+3. GitHub Actions will take care of the rest

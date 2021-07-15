@@ -28,7 +28,7 @@ export enum XmlRpcError {
 export function serializeMethodCall(
   method: string,
   params: XmlRpcValue[] = [],
-  encoding?: Encoding
+  encoding?: Encoding,
 ): string {
   const xml = createXml({ version: "1.0", encoding })
     .ele("methodCall")
@@ -44,10 +44,7 @@ export function serializeMethodCall(
 
 // Creates the XML for an XML-RPC method response
 export function serializeMethodResponse(result: XmlRpcValue): string {
-  const xml = createXml()
-    .ele("methodResponse", { version: "1.0" })
-    .ele("params")
-    .ele("param");
+  const xml = createXml().ele("methodResponse", { version: "1.0" }).ele("params").ele("param");
   serializeValue(result, xml);
 
   // Includes the <?xml ...> declaration
@@ -55,9 +52,7 @@ export function serializeMethodResponse(result: XmlRpcValue): string {
 }
 
 export function serializeFault(fault: XmlRpcFault): string {
-  const xml = createXml()
-    .ele("methodResponse", { version: "1.0" })
-    .ele("fault");
+  const xml = createXml().ele("methodResponse", { version: "1.0" }).ele("fault");
   const faultCode = fault.faultCode ?? XmlRpcError.APPLICATION_ERROR;
   const faultString = fault.faultString ?? fault.message;
   serializeValue({ faultCode, faultString }, xml);
