@@ -6,10 +6,10 @@
 import http from "http";
 import { URL } from "url";
 
-import { HttpServerNodejs } from "./HttpServerNodejs";
 import { XmlRpcFault } from "./XmlRpcFault";
 import { XmlRpcServer } from "./XmlRpcServer";
 import { XmlRpcValue } from "./XmlRpcTypes";
+import { HttpServerNodejs } from "./nodejs/HttpServerNodejs";
 
 describe("XmlRpcServer", () => {
   it("Can receive a chunked request", (done) => {

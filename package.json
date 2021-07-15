@@ -22,6 +22,10 @@
   "homepage": "https://github.com/foxglove/xmlrpc",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./nodejs": "./dist/nodejs/index.js"
+  },
   "files": [
     "dist",
     "src"
