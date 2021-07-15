@@ -28,7 +28,9 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "*.js",
+    "*.d.ts"
   ],
   "scripts": {
     "build": "tsc -b",
