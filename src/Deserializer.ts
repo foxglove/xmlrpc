@@ -27,7 +27,7 @@ export class Deserializer {
 
   static isInteger = /^-?\d+$/;
 
-  constructor(encoding: Encoding = "utf8") {
+  constructor(encoding: Encoding = "utf-8") {
     this._encoding = encoding;
     this._parser = sax.createStream();
     this._parser.on("opentag", this._onOpentag);

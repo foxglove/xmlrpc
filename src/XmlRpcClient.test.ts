@@ -62,7 +62,7 @@ describe("XmlRpcClient", () => {
       });
   });
 
-  it("Can call a method with UTF8 encoding", (done) => {
+  it("Can call a method with UTF-8 encoding", (done) => {
     const server = http
       .createServer((_, res) => {
         res.writeHead(200, { "Content-Type": "text/xml" });
@@ -90,7 +90,7 @@ describe("XmlRpcClient", () => {
     let requestBody = "";
     const server = http
       .createServer((req, res) => {
-        req.setEncoding("utf8");
+        req.setEncoding("utf-8");
         req.on("data", (chunk: string) => {
           requestBody += chunk;
         });

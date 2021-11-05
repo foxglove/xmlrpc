@@ -14,7 +14,6 @@ export type XmlRpcStruct = { [key: string]: XmlRpcValue };
 
 export type Encoding =
   | "ascii"
-  | "utf8"
   | "utf-8"
   | "utf16le"
   | "ucs2"
