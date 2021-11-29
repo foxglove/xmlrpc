@@ -188,7 +188,7 @@ export class Deserializer {
           break;
       }
     } catch (e) {
-      this._onError(e);
+      this._onError(e as Error);
     }
   };
 
