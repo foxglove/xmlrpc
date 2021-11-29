@@ -38,8 +38,8 @@ export class Deserializer {
     this._parser.on("error", this._onError);
   }
 
-  deserializeMethodResponse(data: string | ArrayBuffer): Promise<XmlRpcValue> {
-    return new Promise((resolve, reject) => {
+  async deserializeMethodResponse(data: string | ArrayBuffer): Promise<XmlRpcValue> {
+    return await new Promise((resolve, reject) => {
       this._callback = (error, result) => {
         if (error != undefined) {
           reject(error);
@@ -58,8 +58,8 @@ export class Deserializer {
     });
   }
 
-  deserializeMethodCall(data: string): Promise<[methodName: string, args: XmlRpcValue[]]> {
-    return new Promise((resolve, reject) => {
+  async deserializeMethodCall(data: string): Promise<[methodName: string, args: XmlRpcValue[]]> {
+    return await new Promise((resolve, reject) => {
       this._callback = (error, result) => {
         if (error != undefined) {
           reject(error);
@@ -188,7 +188,7 @@ export class Deserializer {
           break;
       }
     } catch (e) {
-      this._onError(e);
+      this._onError(e as Error);
     }
   };
 
