@@ -27,7 +27,15 @@ export class XmlRpcClient {
     const body = serializeMethodCall(method, params, this.encoding);
     const headers = this.headers;
 
-    const res = await fetch(this.url, { method: "POST", headers, body });
+    let res: fetch.Response;
+    try {
+      res = await fetch(this.url, { method: "POST", headers, body });
+    } catch (err) {
+      if ((err as Error).message === "Failed to fetch") {
+        throw new Error(`XML-RPC call "${method}" to ${this.url} failed to connect`);
+      }
+      throw err;
+    }
     if (!res.ok) {
       throw new Error(
         `XML-RPC call "${method}" to ${this.url} returned ${res.status}: "${res.statusText}"`,
@@ -36,7 +44,7 @@ export class XmlRpcClient {
 
     const resText = await res.text();
     const deserializer = new Deserializer(this.encoding);
-    return deserializer.deserializeMethodResponse(resText);
+    return await deserializer.deserializeMethodResponse(resText);
   }
 
   async multiMethodCall(
@@ -49,8 +57,7 @@ export class XmlRpcClient {
 
     const output: XmlRpcValueOrFault[] = [];
 
-    const createFault = (fault?: XmlRpcStruct) => {
-      fault = fault ?? {};
+    const createFault = (fault: XmlRpcStruct = {}) => {
       const faultString = typeof fault.faultString === "string" ? fault.faultString : undefined;
       const faultCode = typeof fault.faultCode === "number" ? fault.faultCode : undefined;
       return new XmlRpcFault(faultString, faultCode);

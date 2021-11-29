@@ -62,7 +62,7 @@ export function serializeFault(fault: XmlRpcFault): string {
 }
 
 function serializeValue(value: XmlRpcValue, xml: XMLBuilder) {
-  let current: ValueInfo = { value: value, xml: xml };
+  let current: ValueInfo = { value, xml };
   const stack = [current];
   let valueNode;
   let next;
@@ -158,6 +158,7 @@ function getNextItemsFrame(frame: ValueInfo) {
   return nextFrame;
 }
 
+// eslint-disable-next-line @foxglove/no-boolean-parameters
 function appendBoolean(value: boolean, xml: XMLBuilder) {
   xml.ele("boolean").txt(value ? "1" : "0");
 }

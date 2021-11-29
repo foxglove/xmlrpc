@@ -7,6 +7,7 @@ export class HttpServerNodejs implements HttpServer {
   private _server: http.Server;
 
   constructor() {
+    // eslint-disable-next-line @typescript-eslint/promise-function-async
     this.handler = () => Promise.resolve({ statusCode: 404 });
     this._server = new http.Server((req, res) => {
       // Read the full request body into a string
@@ -50,8 +51,8 @@ export class HttpServerNodejs implements HttpServer {
     return addr.port;
   }
 
-  listen(port?: number, hostname?: string, backlog?: number): Promise<void> {
-    return new Promise((resolve, reject) => {
+  async listen(port?: number, hostname?: string, backlog?: number): Promise<void> {
+    return await new Promise((resolve, reject) => {
       this._server.on("error", reject);
       this._server.listen(port, hostname, backlog, () => {
         this._server.removeListener("error", reject);
