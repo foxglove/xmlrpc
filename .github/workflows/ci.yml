@@ -2,10 +2,10 @@ name: CI
 
 on:
   push:
-    branches: main
-    tags: v*
+    branches: [main]
+    tags: ["v*"]
   pull_request:
-    branches: "*"
+    branches: ["*"]
 
 jobs:
   push:
@@ -20,6 +20,9 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - run: yarn install --frozen-lockfile
+      - name: yarn install examples
+        run: yarn install --frozen-lockfile
+        working-directory: ./examples
       - run: yarn run build
       - run: yarn run lint:ci
       - run: yarn run test

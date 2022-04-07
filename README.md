@@ -4,6 +4,10 @@ TypeScript library implementing an XMLRPC client and server with pluggable serve
 
 [![npm version](https://img.shields.io/npm/v/@foxglove/xmlrpc.svg?style=flat)](https://www.npmjs.com/package/@foxglove/xmlrpc)
 
+## Usage
+
+See the `examples` directory for a simple client and server example.
+
 ## License
 
 @foxglove/xmlrpc is licensed under [MIT License](https://opensource.org/licenses/MIT).

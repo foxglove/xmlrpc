@@ -10,7 +10,12 @@ extends:
   - plugin:@foxglove/jest
 
 overrides:
-  - files: ["*.ts", "*.tsx"]
+  - files: ["examples/**/*.ts"]
+    extends:
+      - plugin:@foxglove/typescript
+    parserOptions:
+      project: [./examples/tsconfig.json]
+  - files: ["src/**/*.ts"]
     extends:
       - plugin:@foxglove/typescript
     parserOptions:
