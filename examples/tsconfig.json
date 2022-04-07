@@ -1,11 +1,11 @@
 {
-  "references": [{ "path": "./examples" }],
-  "include": ["./src/**/*.ts"],
+  "include": ["."],
   "compilerOptions": {
+    "composite": true,
     "module": "commonjs",
     "target": "es2020",
-    "lib": ["dom", "es2020"],
-    "rootDir": "./src",
+    "lib": ["es2020"],
+    "rootDir": ".",
     "outDir": "./dist",
 
     "moduleResolution": "node",

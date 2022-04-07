@@ -4,6 +4,10 @@
   "description": "@foxglove/xmlrpc example code",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "client": "ts-node client.ts",
+    "server": "ts-node server.ts"
+  },
   "dependencies": {
     "@foxglove/xmlrpc": "latest"
   },

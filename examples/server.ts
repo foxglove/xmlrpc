@@ -10,10 +10,10 @@ async function main() {
     const [a, b] = args;
     const res = a + b;
     console.debug(`sum(${a}, ${b}) -> ${res}`);
-    return await [res];
+    return [res];
   });
   await xmlrpc.listen(8000);
-  console.info(`Listening on ${xmlrpc.server.url()}`);
+  console.info(`Listening on ${xmlrpc.server.url() ?? "http://localhost:8000"}`);
 }
 
 void main();
