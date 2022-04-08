@@ -1,6 +1,6 @@
 {
   "name": "xmlrpc-examples",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "@foxglove/xmlrpc example code",
   "license": "MIT",
   "private": true,
