@@ -22,7 +22,11 @@ export class HttpServerNodejs implements HttpServer {
           .then((out) => {
             // Write the HTTP response
             res.shouldKeepAlive = out.shouldKeepAlive ?? res.shouldKeepAlive;
-            res.writeHead(out.statusCode, out.statusMessage, out.headers);
+            res.statusCode = out.statusCode;
+            res.statusMessage = out.statusMessage ?? "";
+            for (const [key, value] of Object.entries(out.headers ?? {})) {
+              res.setHeader(key, value);
+            }
             res.end(out.body);
           })
           .catch((err) => {
