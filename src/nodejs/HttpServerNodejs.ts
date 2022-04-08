@@ -29,10 +29,14 @@ export class HttpServerNodejs implements HttpServer {
             }
             res.end(out.body);
           })
-          .catch((err) => {
+          .catch((maybeErr: unknown) => {
+            const err = maybeErr as Error;
+            const errStr = err.message;
             // Write an HTTP error response
-            res.writeHead(500, "Internal Server Error", { "Content-Type": "text/plain" });
-            res.end(String(err));
+            res.shouldKeepAlive = false;
+            res.statusCode = 500;
+            res.statusMessage = errStr;
+            res.end();
           });
       });
     });

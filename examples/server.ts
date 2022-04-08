@@ -13,7 +13,11 @@ async function main() {
     return [res];
   });
   await xmlrpc.listen(8000);
-  console.info(`Listening on ${xmlrpc.server.url() ?? "http://localhost:8000"}`);
+  const url = xmlrpc.server.url() ?? "http://localhost:8000";
+  console.info(`Listening on ${url}`);
+  console.log(
+    `Try running: curl --data "<methodCall><methodName>sum</methodName><params><param><value><int>3</int></value></param><param><value><int>4</int></value></param></params></methodCall>" ${url}`,
+  );
 }
 
 void main();
