@@ -176,6 +176,12 @@ function appendString(value: string, xml: XMLBuilder) {
 function appendNumber(value: number, xml: XMLBuilder) {
   if (value % 1 === 0) {
     xml.ele("int").txt(String(value));
+  } else if (value === Infinity) {
+    xml.ele("double").txt("inf");
+  } else if (value === -Infinity) {
+    xml.ele("double").txt("-inf");
+  } else if (isNaN(value)) {
+    xml.ele("double").txt("nan");
   } else {
     xml.ele("double").txt(String(value));
   }

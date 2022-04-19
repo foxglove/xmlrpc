@@ -221,7 +221,19 @@ export class Deserializer {
   private _endDouble = (data: string): void => {
     const value = parseFloat(data);
     if (isNaN(value)) {
-      throw new Error("Expected a double but got '" + data + "'");
+      const lower = data.toLowerCase();
+      if (lower === "nan") {
+        this._push(NaN);
+        this._value = false;
+      } else if (lower === "-inf" || lower === "-infinity") {
+        this._push(-Infinity);
+        this._value = false;
+      } else if (lower === "inf" || lower === "infinity") {
+        this._push(Infinity);
+        this._value = false;
+      } else {
+        throw new Error("Expected a double but got '" + data + "'");
+      }
     } else {
       this._push(value);
       this._value = false;
