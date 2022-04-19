@@ -159,4 +159,41 @@ describe("XmlRpcClient", () => {
         done();
       });
   });
+
+  it("Handles inf/nan", (done) => {
+    const server = http
+      .createServer((_, res) => {
+        res.writeHead(200, { "Content-Type": "text/xml" });
+        const data =
+          '<?xml version="2.0" encoding="UTF-8"?>' +
+          "<methodResponse>" +
+          "<params>" +
+          "<param><value><array><data>" +
+          "<value><double>42</double></value>" +
+          "<value><double>inf</double></value>" +
+          "<value><double>-Infinity</double></value>" +
+          "<value><double>NaN</double></value>" +
+          "<value><double>nan</double></value>" +
+          "</data></array></value></param>" +
+          "</params>" +
+          "</methodResponse>";
+        res.write(data);
+        res.end();
+      })
+      .listen(undefined, "localhost", async () => {
+        const port = (server.address() as AddressInfo).port;
+        const client = new XmlRpcClient(`http://localhost:${port}`);
+        const res = await client.methodCall("doubleTest");
+        const array = res as number[];
+        expect(Array.isArray(array)).toBe(true);
+        expect(array).toHaveLength(5);
+        expect(array[0]).toEqual(42);
+        expect(array[1]).toEqual(Infinity);
+        expect(array[2]).toEqual(-Infinity);
+        expect(array[3]).toEqual(NaN);
+        expect(array[4]).toEqual(NaN);
+        server.close();
+        done();
+      });
+  });
 });
