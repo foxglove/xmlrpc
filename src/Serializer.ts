@@ -164,9 +164,7 @@ function appendBoolean(value: boolean, xml: XMLBuilder) {
 }
 
 function appendString(value: string, xml: XMLBuilder) {
-  if (value.length === 0) {
-    xml.ele("string");
-  } else if (!illegalChars.test(value)) {
+  if (!illegalChars.test(value)) {
     xml.ele("string").dat(value);
   } else {
     xml.ele("string").txt(value);
