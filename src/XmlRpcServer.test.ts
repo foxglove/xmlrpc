@@ -66,7 +66,7 @@ describe("XmlRpcServer", () => {
       handledMethod = true;
       expect(methodName).toEqual("testMethod");
       expect(args).toEqual([42, -Infinity, NaN]);
-      return await Promise.resolve([1, "test", undefined]);
+      return await Promise.resolve([1, "test", "", undefined]);
     });
     server.listen().then(() => {
       const port = parseInt(new URL(server.server.url() as string).port);
@@ -99,7 +99,7 @@ describe("XmlRpcServer", () => {
         res.on("data", (chunk: string) => (resData += chunk));
         res.on("end", () => {
           expect(resData).toEqual(
-            '<?xml version="1.0"?><methodResponse><params><param><value><array><data><value><int>1</int></value><value><string>test</string></value><value/></data></array></value></param></params></methodResponse>',
+            '<?xml version="1.0"?><methodResponse><params><param><value><array><data><value><int>1</int></value><value><string>test</string></value><value><string></string></value><value/></data></array></value></param></params></methodResponse>',
           );
           server.close();
           done();
