@@ -2,6 +2,9 @@ export type HttpRequest = {
   body: string;
   method?: string;
   url?: string;
+  socket: {
+    localAddress?: string;
+  };
 };
 
 export type HttpResponse = {

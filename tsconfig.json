@@ -1,5 +1,4 @@
 {
-  "references": [{ "path": "./examples" }],
   "include": ["./src/**/*.ts"],
   "compilerOptions": {
     "module": "commonjs",

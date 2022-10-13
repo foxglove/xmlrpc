@@ -75,7 +75,7 @@ export class XmlRpcServer {
         body = serializeMethodResponse(allResponses);
       }
     } else {
-      const res = await this._methodCallHandler(methodName, args);
+      const res = await this._methodCallHandler(methodName, args, req);
       body = res instanceof XmlRpcFault ? serializeFault(res) : serializeMethodResponse(res);
     }
 
@@ -90,6 +90,7 @@ export class XmlRpcServer {
   private _methodCallHandler = async (
     methodName: string,
     args: XmlRpcValue[],
+    req?: HttpRequest,
   ): Promise<XmlRpcValue | XmlRpcFault> => {
     const handler = this.xmlRpcHandlers.get(methodName);
     if (handler == undefined) {
@@ -97,7 +98,7 @@ export class XmlRpcServer {
     }
 
     try {
-      const res = await handler(methodName, args);
+      const res = await handler(methodName, args, req);
       return res;
     } catch (err) {
       return err instanceof XmlRpcFault
