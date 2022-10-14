@@ -29,10 +29,8 @@
     data-uri-to-buffer "^3.0.1"
     fetch-blob "^2.1.1"
 
-"@foxglove/xmlrpc@latest":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@foxglove/xmlrpc/-/xmlrpc-1.1.6.tgz#29e5cf8f38641b8629946381e3cfe22f9c1cab77"
-  integrity sha512-R6JMgJUtltvoyxdjk1zG9C3d092ABAcxRmwjUsdh/xNowNiB9sOKtzn4SctuBFEi+fME6x53SO/2U6hu5rZTPg==
+"@foxglove/xmlrpc@../":
+  version "1.2.1"
   dependencies:
     "@foxglove/just-fetch" "^1.2.4"
     byte-base64 "^1.1.0"

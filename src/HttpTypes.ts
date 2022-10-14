@@ -2,8 +2,11 @@ export type HttpRequest = {
   body: string;
   method?: string;
   url?: string;
-  socket: {
+  socket?: {
     localAddress?: string;
+    localPort?: number;
+    remoteAddress?: string;
+    remotePort?: number;
   };
 };
 
