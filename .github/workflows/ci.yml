@@ -20,12 +20,17 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - run: yarn install --frozen-lockfile
-      - run: yarn run build
       - run: yarn run lint:ci
       - run: yarn run test
+      - run: yarn run build
 
+      # install dependencies for examples (including reference back to main package)
       - name: yarn install examples
         run: yarn install --frozen-lockfile
+        working-directory: ./examples
+      # make sure the examples build
+      - name: build examples
+        run: yarn tsc -b
         working-directory: ./examples
 
       - name: Publish to NPM
