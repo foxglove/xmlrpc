@@ -1,3 +1,4 @@
+import { HttpRequest } from "./HttpTypes";
 import { XmlRpcFault } from "./XmlRpcFault";
 
 export type XmlRpcValue =
@@ -23,6 +24,10 @@ export type Encoding =
   | "binary"
   | "hex";
 
-export type XmlRpcMethodHandler = (methodName: string, args: XmlRpcValue[]) => Promise<XmlRpcValue>;
+export type XmlRpcMethodHandler = (
+  methodName: string,
+  args: XmlRpcValue[],
+  req?: HttpRequest,
+) => Promise<XmlRpcValue>;
 
 export type XmlRpcValueOrFault = XmlRpcValue | XmlRpcFault;
