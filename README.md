@@ -10,7 +10,7 @@ See the `examples` directory for a simple client and server example.
 
 ## License
 
-@foxglove/xmlrpc is licensed under [MIT License](https://opensource.org/licenses/MIT).
+@foxglove/xmlrpc is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Releasing
 
